@@ -1,7 +1,7 @@
 SELECT 
     us_state,
-    argMax(cat_id, total_amount) AS top_category,
-    MAX(total_amount) AS max_total
+    argMaxMerge(top_category) AS top_category,
+    max(max_amount) AS max_transaction
 FROM transactions_data
 GROUP BY us_state
-ORDER BY max_total DESC
+ORDER BY max_transaction DESC

@@ -1,7 +1,7 @@
 CREATE TABLE kafka_queue (
-    cat_id String,
-    amount Float64,
-    us_state String
+    cat_id LowCardinality(String),
+    amount Decimal(7, 2),
+    us_state FixedString(2)
 ) ENGINE = Kafka
 SETTINGS
     kafka_broker_list = 'kafka:9092',
@@ -14,8 +14,8 @@ SETTINGS
 
 CREATE TABLE transactions_data (
     us_state FixedString(2),
-    cat_id LowCardinality(String),
-    total_amount Decimal(15, 2)
-) ENGINE = SummingMergeTree(total_amount)
-ORDER BY (us_state, cat_id)
+    max_amount SimpleAggregateFunction(max, Decimal(7, 2)),
+    top_category AggregateFunction(argMax, LowCardinality(String), Decimal(7, 2))
+) ENGINE = AggregatingMergeTree()
+ORDER BY us_state;
 ;

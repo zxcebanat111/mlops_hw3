@@ -60,9 +60,9 @@ docker-compose up --build
  - Результаты будут записаны по пути `output/transactions_stats_by_states.csv` статистики записаны в формате:
     ```json
     {
-    "us_state": TX, 
-    "top_category": grocery_pos, 
-    "max_total": 363311.34,
+    "us_state": "TX", 
+    "top_category": "grocery_pos", 
+    "max_transaction": 363311.34,
     }
     ```
 ## Структура проекта
@@ -87,5 +87,5 @@ docker-compose up --build
    - FixedString(2) для кода штата
    - LowCardinality(String) для категории, так как их всего 14
    - Decimal(7,2) обеспечивает максимальную точность и позволяет не выделять лишнюю память
-3. Таблица сразу инициализируется как AggregatingMergeTree, что позволяет избежать хранения большого объема данных
+3. Таблица сразу инициализируется как AggregatingMergeTree, что позволяет значительно ускорить подсчет аггрегаций и не хранить таблицу полностью
 4. Таблица сортируется по штатам для оптимизации сжатия данных

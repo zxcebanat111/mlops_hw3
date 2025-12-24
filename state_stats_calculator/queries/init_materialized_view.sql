@@ -1,7 +1,7 @@
 CREATE MATERIALIZED VIEW kafka_to_transactions TO transactions_data AS
-SELECT
-    toFixedString(us_state, 2) AS us_state,
-    cat_id,
-    toDecimal64(amount, 2) AS total_amount
+SELECT 
+    us_state,
+    max(amount) AS max_amount,
+    argMaxState(cat_id, amount) AS top_category
 FROM kafka_queue
-;
+GROUP BY us_state;
