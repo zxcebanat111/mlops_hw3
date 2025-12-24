@@ -1,0 +1,12 @@
+certifi==2025.11.12
+clickhouse-connect==0.10.0
+kafka-python-ng==2.2.3
+lz4==4.4.5
+numpy==2.0.2
+pandas==2.3.3
+python-dateutil==2.9.0.post0
+pytz==2025.2
+six==1.17.0
+tzdata==2025.3
+urllib3==2.6.2
+zstandard==0.25.0
